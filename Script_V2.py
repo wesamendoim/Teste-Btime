@@ -12,7 +12,7 @@ try:
     if response.status_code == 200:
         print("Conexão bem sucedida!")  
     else:
-        print(f"Falha na conexão. Código de status: {response.status_code}")
+       Exception(f"Falha na conexão. Código de status: {response.status_code}")
 
     data = response.json()
     df = pd.json_normalize(data["children"][0]["standings"]["entries"], sep=".")
@@ -47,7 +47,7 @@ try:
     #Montando o DF
     df = pd.DataFrame(tabela)
     print(df)
-
+    
     #Montando o CSV
     df.to_csv("Excel(arquivocsv)\\tabela_brasileirao_V2.csv", index=False, sep=";", encoding="utf-8-sig")
 

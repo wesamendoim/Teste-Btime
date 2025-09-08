@@ -4,19 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC    
 import time
 import pandas as pd
-
-#Variavel que fará toda a interação com o Selenium
-def driverBrowser(driver):
-    match driver:
-        case "chrome":
-            driver = webdriver.Chrome()
-        case "firefox":
-            driver = webdriver.Firefox()   
-        case "edge":
-            driver = webdriver.Edge()   
-        case _:
-            print("Navegador não suportado")
-    return driver
+from Selenium.Browser import driverBrowser
 
 try:
     #Utitlizar o Edge pois é padrão do Windows
@@ -29,7 +17,7 @@ try:
     driver.maximize_window()
 
     #Esperar a pagina carregar
-    driver.implicitly_wait(20) #Esperar 20 segundos para carregar a página
+    driver.implicitly_wait(30) #Esperar 20 segundos para carregar a página
 
     #Esperar o elemento estar presente na página
     WebDriverWait(driver, 10).until(EC.presence_2of_element_located((By.XPATH, '/html/body/div[5]/section/section/div/section[1]/article[2]/div/ul/li[3]/a')))   
@@ -57,6 +45,7 @@ try:
     #juntando as tabelas capturadas
     df = pd.concat([tables[0], tables[1]], axis=1)
     print(df)
+
     #Gravando a tabela em CSV   
     df.to_csv("Excel(arquivocsv)\\tabela_brasileirao_V1.csv", index=False, sep=";", encoding="utf-8-sig")
 
